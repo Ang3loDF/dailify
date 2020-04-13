@@ -1,0 +1,23 @@
+{
+  "name": "web-news-assembler",
+  "version": "1.0.0",
+  "description": "A website that get news by some web newspaper through web scraping and assebles them in a single page",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ang3loDF/web-news-assembler.git"
+  },
+  "author": "Angelo Di Fuccia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ang3loDF/web-news-assembler/issues"
+  },
+  "homepage": "https://github.com/Ang3loDF/web-news-assembler#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1"
+  }
+}
