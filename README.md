@@ -1,2 +1,2 @@
 # web-news-assembler
-A website that gets news from some web newspapers through web scraping and assembles them into a single page.
+A website that finds news from differtent web newspapers and aggregates them in a sigle page.

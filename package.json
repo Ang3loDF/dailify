@@ -1,7 +1,7 @@
 {
   "name": "web-news-assembler",
   "version": "1.0.0",
-  "description": "A website that get news by some web newspaper through web scraping and assebles them in a single page",
+  "description": "A website that finds news from differtent web newspapers and aggregates them in a sigle page.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,7 +19,9 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
+    "fs": "0.0.1-security",
     "mongoose": "^5.9.7",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "xml2js": "^0.4.23"
   }
 }
