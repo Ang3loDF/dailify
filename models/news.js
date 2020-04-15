@@ -4,7 +4,8 @@ var newsSchema = mongoose.Schema({
     title: String,
     image: String,
     body: String,
-    link: String
+    link: String,
+    date: Date
 });
 
 module.exports = mongoose.model("News", newsSchema);
