@@ -8,7 +8,7 @@ var indexRoutes = require("./routes/index");
 
 //initialize enviroment variables
 var port = process.env.PORT || 3000,
-    databaseUrl = process.env.DATABASEURL || "mongodb://localhost:27017/web_news_assembler";
+    databaseUrl = process.env.DATABASEURL || "mongodb://localhost:27017/web_news_combinator";
 
 mongoose.connect(databaseUrl, {useUnifiedTopology: true, useNewUrlParser: true});
 
