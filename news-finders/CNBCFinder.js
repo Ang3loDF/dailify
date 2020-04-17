@@ -53,7 +53,7 @@ CNBCFinder.findSection = function(newNews, url){
                             news.title = item.title ? item.title[0]: null; 
                             news.body = item.description ? item.description[0]: null;
                             news.link = item.link ? item.link[0]: null;
-                           // news.image = item["media:content"] ? item["media:content"][0].$.url : null;
+                            news.image = null;
                             news.date = item.pubDate ? new Date(item.pubDate[0]) : null;
                             
                             // try to find the current news in the database
