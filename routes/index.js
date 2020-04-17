@@ -1,7 +1,8 @@
 var express = require("express"),
     router = express.Router(),
     NYTFinder = require("../news-finders/NYTFinder"),
-    CNNFinder = require("../news-finders/CNNFinder");
+    CNNFinder = require("../news-finders/CNNFinder"),
+    CNBCFincer = require("../news-finders/CNBCFinder");
 
 router.get("/", function(req, res){
     res.send("<h1>Welcome to the home page</h1>");
@@ -11,6 +12,7 @@ router.get("/find", async function(req, res){
     var newNews = [];
     newNews = await NYTFinder.find(newNews);
     newNews = await CNNFinder.find(newNews);
+    newNews = await CNBCFincer.find(newNews);
     console.log(newNews + " " + newNews.length);
     res.send("<p>Finding...</p>");
 })
