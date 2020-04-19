@@ -1,2 +1,2 @@
 seed.js
-news-finders/NYTScraper.js
+lib/news-finders/NYTScraper.js
