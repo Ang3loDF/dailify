@@ -6,6 +6,15 @@
     <title>Document</title>
 </head>
 <body>
+    
+    <% if (errorMessage && errorMessage.length > 0){ %>
+        <h1>Message: <%= errorMessage %></h1>
+    <% } %>
+
+    <% if (successMessage && successMessage.length > 0){ %>
+        <h1>Message: <%= successMessage %></h1>
+    <% } %>
+
     <% news.forEach(function(news){ %>
         <h1><%= news.title %></h1>
         <p><%= news.body %></p>

@@ -1,5 +1,13 @@
 <h1>Register</h1>
 
+<% if (errorMessage && errorMessage.length > 0){ %>
+    <h1>Message: <%= errorMessage %></h1>
+<% } %>
+
+<% if (successMessage && successMessage.length > 0){ %>
+    <h1>Message: <%= successMessage %></h1>
+<% } %>
+
 <form action="/register" method="POST">
     <input type="email" name="email" placeholder="email">
     <input type="password" name="password" placeholder="password">

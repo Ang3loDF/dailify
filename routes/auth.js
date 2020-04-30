@@ -13,7 +13,9 @@ router.get("/login", function(req, res){
 // login logic route
 router.post("/login", passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/login"
+    failureRedirect: "/login",
+    failureFlash: {type: "error", message: "Username or password incorrect."},
+    successFlash: {type: "success", message: "Correctly logged-in."}
 }), function(){
 })
 
@@ -29,11 +31,12 @@ router.post("/register", function(req, res){
     const newUser = new User({email: req.body.email})
     User.register(newUser, req.body.password, function(err, user){
         if(err){
-            console.log("registration error " + err)
-            return res.render("auth/register")
+            req.flash("error", "Something went wrong. Try again.")
+            return res.redirect("/register")
         }
         
         passport.authenticate("local")(req, res, function(){
+            req.flash("success", "Correctly registered.")
             res.redirect("/");
         })
     })
@@ -42,6 +45,7 @@ router.post("/register", function(req, res){
 // loagout route
 router.get("/logout", function(req, res){
     req.logout();
+    req.flash("success", "Correctly logged-out.")
     res.redirect("/");
 })
 
