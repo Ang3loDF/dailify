@@ -46,7 +46,7 @@ app.use(function(req, res, next){
 })
 
 
-//seed();
+seed();
 
 
 //launch the news finding process

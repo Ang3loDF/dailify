@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 </head>
 <body>
     
@@ -15,11 +16,133 @@
         <h1>Message: <%= successMessage %></h1>
     <% } %>
 
-    <% news.forEach(function(news){ %>
-        <h1><%= news.title %></h1>
-        <p><%= news.body %></p>
-        <p><%= news.date %></p>
-        <br>
-    <% }) %>
+    <div id="topics-selector">
+        <input type="checkbox" name="economy" class="topic-checkbox">
+        <label for="topic-economy">Economy</label><br>
+        <input type="checkbox" name="tech" class="topic-checkbox">
+        <label for="topic-tech">Technology</label><br>
+        <input type="checkbox" name="politics" class="topic-checkbox">
+        <label for="topic-economy">Politics</label><br>
+        <button id="topics-selector-submit">Submit</button>
+    </div>
+
+    <div id="news-section">
+        <% news.forEach(function(news){ %>
+            <h3><a href="<%= news.link %>"><%= news.title %></a></h3>
+            <p><%= news.body %></p>
+            <p><%= news.newspaper %></p>
+            <p><%= news.topics %></p>
+            <p><%= news.date %></p>
+            <br>
+        <% }) %>
+    </div>
+
+    <script type="text/javascript">
+
+        // find new news on click
+        document.getElementById("topics-selector-submit").onclick = function(){
+            findNewsJquery();
+        }
+        
+        /* // send the ajax request, obtain the news and show them
+        function findNews(){
+            var xhttp = new XMLHttpRequest();
+
+            // on news find, show them
+            xhttp.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.response)
+                    showNews(this);
+                }
+            }
+
+            // get the wanted topics
+            var topicsString = "";
+            document.querySelectorAll(".topic-checkbox").forEach(function(el){
+                if(el.checked){
+                    topicsString += (el.name + "-");
+                }
+            })
+            topicsString = topicsString.substring(0, topicsString.length - 1);
+
+            // send teh ajax
+            xhttp.open("POST", "/news/find?topics=" + topicsString, true);
+            xhttp.setRequestHeader("Content-Type", "text/xml");
+            xhttp.send();
+
+        }
+        
+        // show the news
+        function showNews(xml){
+            // get the xml
+            var xmlDoc = xml.responseXML;
+            var news = xmlDoc.getElementsByTagName("news");
+
+            // make the news section blank
+            document.getElementById("news-section").innerHTML = "";
+            // fill the news section with new news html
+            for (let i = 0; i < news.length; i++) {
+                document.getElementById("news-section").innerHTML += "<div>" + 
+                    "<h2><a href='" + news[i].getElementsByTagName("link")[0].innerHTML + "'>" + 
+                        news[i].getElementsByTagName("title")[0].innerHTML + "</a></h2>" +
+                    "<p>" + news[i].getElementsByTagName("body")[0].innerHTML + "</p>" +
+                    "<p>" + news[i].getElementsByTagName("newspaper")[0].innerHTML + "</p>" +
+                    "<p>" + news[i].getElementsByTagName("topics")[0].innerHTML + "</p>" +
+                    "<p>" + news[i].getElementsByTagName("date")[0].innerHTML + "</p>";  
+            }
+            
+        } */
+
+        function findNewsJquery(){
+            
+            // get the wanted topics
+            var topicsString = "";
+            document.querySelectorAll(".topic-checkbox").forEach(function(el){
+                if(el.checked){
+                    topicsString += (el.name + "-");
+                }
+            })
+            topicsString = topicsString.substring(0, topicsString.length - 1);
+
+            $.ajax("/news/find?topics=" + topicsString, {
+                method: "POST",
+                dataType : "xml",
+                success: function(xml){
+                    showNewsJquery(xml);
+                },
+                error: function(request, error, message){
+                    
+                        console.log(error)
+                    
+                }
+            })
+        }
+
+        function showNewsJquery(xml){
+            news = $(xml);
+
+            // make the news section blank
+            document.getElementById("news-section").innerHTML = "";
+
+            var htmlContent = "";
+
+            console.log(news.find("news").each(function(){
+                console.log($(this).find("title").text());
+                
+                    htmlContent += "<div>" + 
+                    "<h2><a href='" + $(this).find("link").text() + "'>" + 
+                        $(this).find("title").text() + "</a></h2>" +
+                    "<p>" + $(this).find("body").text() + "</p>" +
+                    "<p>" + $(this).find("newspaper").text() + "</p>" +
+                    "<p>" + $(this).find("topics").text() + "</p>" +
+                    "<p>" + $(this).find("date").text() + "</p>" +
+                    "</div>";
+            }))
+
+            $("#news-section").html(htmlContent)
+        }
+
+    </script>
+
 </body>
-</html></html>
+</html>
