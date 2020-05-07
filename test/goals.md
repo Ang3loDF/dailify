@@ -1,11 +1,9 @@
 # user
-- create a user profile page with accessibility restriction
-    - create a system to set interests
-        - add some error hendling when retrieve topics from the form values in the routes (if the topics doesn't exist for exeple)
-    - change password 
-    - change name
-    - other impostations...
-- create an email validation
+- @ create an inputs validation before to add them to database
+    - email validation
+    - password validation
+    - name validation
+    - topics validation
 
 # error
 - change the redirect routes of errors to news

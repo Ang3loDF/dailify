@@ -28,7 +28,7 @@ router.get("/register", function(req, res){
 
 
 // register logic route
-router.post("/register", function(req, res){
+router.post("/register", middleware.validateInputs, function(req, res){
     // create the user object
     const newUser = new User({email: req.body.email})
     // register the user with the passord
@@ -80,7 +80,7 @@ router.get("/users/:userId/edit", middleware.checkProfileOwnership, function(req
 
 
 // update the user logic - route
-router.put("/users/:userId", middleware.checkProfileOwnership, function(req, res){
+router.put("/users/:userId", middleware.checkProfileOwnership, middleware.validateInputs, function(req, res){
     
     // find the user
     User.findById(req.params.userId, function(err, user){
@@ -103,7 +103,7 @@ router.put("/users/:userId", middleware.checkProfileOwnership, function(req, res
 
 
 // update the password logic - route
-router.put("/users/:userId/password", middleware.checkProfileOwnership, function(req, res){
+router.put("/users/:userId/password", middleware.checkProfileOwnership, middleware.validateInputs, function(req, res){
     
     // find the user
     User.findById(req.params.userId, function(err, user){
