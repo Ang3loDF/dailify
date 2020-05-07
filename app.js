@@ -6,6 +6,7 @@ var express = require("express"),
     bodyParser = require("body-parser"),
     passport = require("passport"),
     flash = require("connect-flash"),
+    methodOverride = require("method-override"),
 
     passportSetup = require("./config/passportSetup"),
     seed = require("./test/seed"),
@@ -13,7 +14,7 @@ var express = require("express"),
 
 // require routers
 var indexRoutes = require("./routes/index"),
-    authRoutes = require("./routes/auth");
+    userRoutes = require("./routes/user");
 
 
 // initialize ejs
@@ -30,6 +31,7 @@ mongoose.connect(databaseUrl, {useUnifiedTopology: true, useNewUrlParser: true})
 
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
 app.use(flash());
 
 // passport configuration
@@ -46,7 +48,7 @@ app.use(function(req, res, next){
 })
 
 
-seed();
+//seed();
 
 
 //launch the news finding process
@@ -56,7 +58,7 @@ newsFind.start(60000, function(){
 
 
 // use routes
-app.use(authRoutes);
+app.use(userRoutes);
 app.use(indexRoutes);
 
 

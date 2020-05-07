@@ -1,0 +1,30 @@
+<h1>Edit your profile</h1>
+
+<% if (errorMessage && errorMessage.length > 0){ %>
+    <h1>Message: <%= errorMessage %></h1>
+<% } %>
+
+<% if (successMessage && successMessage.length > 0){ %>
+    <h1>Message: <%= successMessage %></h1>
+<% } %>
+
+<form action="/users/<%= user._id %>?_method=PUT" method="POST">
+    <h2>Interests</h2>
+    <input type="checkbox" name="topics" value="economy">
+    <label>Economy</label><br>
+    <input type="checkbox" name="topics" value="tech">
+    <label>Tech</label><br>
+    <input type="checkbox" name="topics" value="politics">
+    <label>Politics</label><br>
+    <h2>Name</h2>
+    <input type="text" name="name">
+    <label>Name</label><br>
+    <button>submit</button>
+</form>
+
+<form action="/users/<%= user._id %>/password?_method=PUT" method="POST">
+    <h2>Change password</h2>
+    <input type="password" name="password">
+    <label>Password</label><br>
+    <button>Submit</button>
+</form>

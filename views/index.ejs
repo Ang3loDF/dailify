@@ -11,18 +11,18 @@
     <% if (errorMessage && errorMessage.length > 0){ %>
         <h1>Message: <%= errorMessage %></h1>
     <% } %>
-
+    
     <% if (successMessage && successMessage.length > 0){ %>
         <h1>Message: <%= successMessage %></h1>
     <% } %>
 
     <div id="topics-selector">
         <input type="checkbox" name="economy" class="topic-checkbox">
-        <label for="topic-economy">Economy</label><br>
+        <label>Economy</label><br>
         <input type="checkbox" name="tech" class="topic-checkbox">
-        <label for="topic-tech">Technology</label><br>
+        <label>Technology</label><br>
         <input type="checkbox" name="politics" class="topic-checkbox">
-        <label for="topic-economy">Politics</label><br>
+        <label>Politics</label><br>
         <button id="topics-selector-submit">Submit</button>
     </div>
 

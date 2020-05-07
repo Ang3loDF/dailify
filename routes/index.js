@@ -1,7 +1,6 @@
 var express = require("express"),
     router = express.Router(),
     xmlBuilder = require("xmlBuilder"),
-    middleware = require("./middleware"),
     News = require("../lib/models/news"),
     User = require("../lib/models/user");
 
@@ -80,12 +79,6 @@ router.post("/news/find", function(req, res){
         })
 
     }
-})
-
-
-// profile page - route
-router.get("/users/:userId", middleware.checkProfileOwnership, function(req, res){
-    res.render("profile")
 })
 
 
