@@ -1,9 +1,5 @@
 # user
-- @ create an inputs validation before to add them to database
-    - email validation
-    - password validation
-    - name validation
-    - topics validation
+- add a system to add topics in registration
 
 # error
 - change the redirect routes of errors to news

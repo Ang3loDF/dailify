@@ -29,8 +29,15 @@ router.get("/register", function(req, res){
 
 // register logic route
 router.post("/register", middleware.validateInputs, function(req, res){
+    
     // create the user object
-    const newUser = new User({email: req.body.email})
+    const newUser = new User({
+        email: req.body.email,
+        name: req.body.name,
+        interests: req.body.topics,
+        registrationDate: Date(Date.now())
+    })
+
     // register the user with the passord
     User.register(newUser, req.body.password, function(err, user){
         if(err){
@@ -59,7 +66,7 @@ router.get("/users/:userId", middleware.checkProfileOwnership, function(req, res
     
     // find the user
     User.findById(req.params.userId, function(err, user){
-        if(err && user) return res.render("error", {error: "404"})
+        if(err) return res.render("error", {error: "404"})
 
         res.render("profile/profile", {user: user})
     })
@@ -84,7 +91,7 @@ router.put("/users/:userId", middleware.checkProfileOwnership, middleware.valida
     
     // find the user
     User.findById(req.params.userId, function(err, user){
-        if(err && user){
+        if(err){
             req.flash("error", "Something went wrong. Try again.")
             return res.redirect("/users/" + req.params.userId);
         }
@@ -107,7 +114,7 @@ router.put("/users/:userId/password", middleware.checkProfileOwnership, middlewa
     
     // find the user
     User.findById(req.params.userId, function(err, user){
-        if(err && user){
+        if(err){
             req.flash("error", "Something went wrong. Try again.")
             return res.redirect("/users/" + req.params.userId);
         }

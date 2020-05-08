@@ -9,7 +9,23 @@
 <% } %>
 
 <form action="/register" method="POST">
-    <input type="email" name="email" placeholder="email">
-    <input type="password" name="password" placeholder="password">
+    
+    <input type="email" name="email" placeholder="email"><br><br>
+    <input type="password" name="password" placeholder="password"><br><br>
+
+    <input type="text" name="name" placeholder="Your name"><br><br>
+
+    <h2>Your Interests</h2>
+    <input type="checkbox" name="topics" value="economy">
+    <label>Economy</label><br>
+    <input type="checkbox" name="topics" value="tech">
+    <label>Tech</label><br>
+    <input type="checkbox" name="topics" value="politics">
+    <label>Politics</label><br>
+    <input type="checkbox" name="topics" value="business">
+    <label>Business</label><br>
+    <input type="checkbox" name="topics" value="world">
+    <label>World</label><br><br>
+
     <button>Submit</button>
 </form>

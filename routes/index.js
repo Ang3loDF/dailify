@@ -14,8 +14,6 @@ router.get("/", function(req, res){
 
 // show news page - route
 router.get("/news", function(req, res){
-    if(req.isAuthenticated()) console.log("authenticated");
-    else console.log("not authenticated");
 
     // if the client isn't authenticated, render the latest news
     if(!req.isAuthenticated()){
@@ -67,8 +65,6 @@ router.post("/news/find", function(req, res){
 
         // obtain an array of topics (they must be passed through the query in the form topics=economy-politics-...)
         var topics = req.query.topics.split("-");
-
-        console.log(req.query.topics)
 
         // find and sent the latest news containing the specefied topics
         News.find({ topics: { "$in" : topics }}).sort({date: -1}).limit(numOfNewsToSend).then(news => {
