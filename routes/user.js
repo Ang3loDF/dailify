@@ -13,7 +13,7 @@ router.get("/login", function(req, res){
 
 // login logic route
 router.post("/login", passport.authenticate("local", {
-    successRedirect: "/",
+    successRedirect: "/news",
     failureRedirect: "/login",
     failureFlash: {type: "error", message: "Username or password incorrect."},
     successFlash: {type: "success", message: "Correctly logged-in."}
@@ -47,17 +47,17 @@ router.post("/register", middleware.validateInputs, function(req, res){
         
         passport.authenticate("local")(req, res, function(){
             req.flash("success", "Correctly registered.")
-            res.redirect("/");
+            res.redirect("/news");
         })
     })
 })
 
 
-// loagout route
+// logout route
 router.get("/logout", function(req, res){
     req.logout();
     req.flash("success", "Correctly logged-out.")
-    res.redirect("/");
+    res.redirect("/news");
 })
 
 

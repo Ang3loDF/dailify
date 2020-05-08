@@ -1,9 +1,10 @@
 var LocalStrategy = require("passport-local"),
+    privateKeys = require("./privateKeys"),
     User = require("../lib/models/user");
 
 function setup(app, passport){
     app.use(require("express-session")({
-        secret: "My cat is playing with my foot",
+        secret: privateKeys.SESSION_KEY,
         resave: false,
         saveUninitialized: false
     }));

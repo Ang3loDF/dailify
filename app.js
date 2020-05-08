@@ -9,6 +9,7 @@ var express = require("express"),
     methodOverride = require("method-override"),
 
     passportSetup = require("./config/passportSetup"),
+    privateKeys = require("./config/privateKeys"),
     seed = require("./test/seed"),
     newsFind = require("./lib/news-finders/findProcess");
 
@@ -23,7 +24,7 @@ app.set("view engine", "ejs");
 
 // initialize enviroment variables
 var port = process.env.PORT || 3000,
-    databaseUrl = process.env.DATABASEURL || "mongodb://localhost:27017/web_news_combinator";
+    databaseUrl = process.env.DATABASE_URL || privateKeys.DATABASE_URL;
 
 
 // connect with the database

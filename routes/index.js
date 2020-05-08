@@ -6,6 +6,7 @@ var express = require("express"),
 
 const numOfNewsToSend = 20;
 
+
 // landing - route
 router.get("/", function(req, res){
     res.redirect("/news");
