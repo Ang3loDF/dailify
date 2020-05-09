@@ -33,6 +33,10 @@
             <p><%= news.newspaper %></p>
             <p><%= news.topics %></p>
             <p><%= news.date %></p>
+            <p>Like: <%= news.likes %></p>
+
+            <button class="like-button" data-newsId="<%= news._id %>">Like!</button>
+
             <br>
         <% }) %>
     </div>
@@ -43,55 +47,12 @@
         document.getElementById("topics-selector-submit").onclick = function(){
             findNewsJquery();
         }
+
+        $(".like-button").click(function () {
+            console.log("clicked like")
+            sendNewsLike($(this).attr("data-newsId"))
+        })
         
-        /* // send the ajax request, obtain the news and show them
-        function findNews(){
-            var xhttp = new XMLHttpRequest();
-
-            // on news find, show them
-            xhttp.onreadystatechange = function(){
-                if (this.readyState == 4 && this.status == 200) {
-                    console.log(this.response)
-                    showNews(this);
-                }
-            }
-
-            // get the wanted topics
-            var topicsString = "";
-            document.querySelectorAll(".topic-checkbox").forEach(function(el){
-                if(el.checked){
-                    topicsString += (el.name + "-");
-                }
-            })
-            topicsString = topicsString.substring(0, topicsString.length - 1);
-
-            // send teh ajax
-            xhttp.open("POST", "/news/find?topics=" + topicsString, true);
-            xhttp.setRequestHeader("Content-Type", "text/xml");
-            xhttp.send();
-
-        }
-        
-        // show the news
-        function showNews(xml){
-            // get the xml
-            var xmlDoc = xml.responseXML;
-            var news = xmlDoc.getElementsByTagName("news");
-
-            // make the news section blank
-            document.getElementById("news-section").innerHTML = "";
-            // fill the news section with new news html
-            for (let i = 0; i < news.length; i++) {
-                document.getElementById("news-section").innerHTML += "<div>" + 
-                    "<h2><a href='" + news[i].getElementsByTagName("link")[0].innerHTML + "'>" + 
-                        news[i].getElementsByTagName("title")[0].innerHTML + "</a></h2>" +
-                    "<p>" + news[i].getElementsByTagName("body")[0].innerHTML + "</p>" +
-                    "<p>" + news[i].getElementsByTagName("newspaper")[0].innerHTML + "</p>" +
-                    "<p>" + news[i].getElementsByTagName("topics")[0].innerHTML + "</p>" +
-                    "<p>" + news[i].getElementsByTagName("date")[0].innerHTML + "</p>";  
-            }
-            
-        } */
 
         function findNewsJquery(){
             
@@ -109,6 +70,11 @@
                 dataType : "xml",
                 success: function(xml){
                     showNewsJquery(xml);
+                    
+                    $(".like-button").click(function () {
+                        console.log("clicked like")
+                        sendNewsLike($(this).attr("data-newsId"))
+                    })
                 },
                 error: function(request, error, message){
                     
@@ -127,7 +93,6 @@
             var htmlContent = "";
 
             console.log(news.find("news").each(function(){
-                console.log($(this).find("title").text());
                 
                     htmlContent += "<div>" + 
                     "<h2><a href='" + $(this).find("link").text() + "'>" + 
@@ -136,10 +101,26 @@
                     "<p>" + $(this).find("newspaper").text() + "</p>" +
                     "<p>" + $(this).find("topics").text() + "</p>" +
                     "<p>" + $(this).find("date").text() + "</p>" +
+                    "<p>Likes:" + $(this).find("likes").text() + "</p>" +
+                    "<button class='like-button' data-newsId='" + $(this).find("id").text() + "'>Like</button>" +
                     "</div>";
             }))
 
             $("#news-section").html(htmlContent)
+        }
+
+
+        // send the ajax request to like the news
+        function sendNewsLike(newsId){
+            $.ajax("/news/" + newsId + "/like?_method=PUT", {
+                method: "POST",
+                success: function(data){
+                    console.log(data == 1 ? "liked" : "disliked");
+                },
+                error: function(jqXHR, textStatus, errorThrown ){
+                    console.log("news not liked")
+                }
+            })
         }
 
     </script>

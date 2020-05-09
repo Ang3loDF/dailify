@@ -79,6 +79,53 @@ router.post("/news/find", function(req, res){
 })
 
 
+// like the news if the current user didn't before, dislike otherwise
+router.put("/news/:newsId/like", function (req, res) {
+
+    // if the user is not aunthenticated, return Unauthorized
+    if (!req.isAuthenticated()) {
+        return res.status(401).send();
+    }
+        
+    // find the user
+    User.findById(req.user._id, function (err, user) {
+        if (err || !user) {
+            return res.status(500).send();
+        }
+
+        // the index of the news to like in the user's likes list (if there isn't yet or the array is undefined it's -1)
+        var likedNewsIndex = user.likedNews ? user.likedNews.findIndex( el => el.equals(req.params.newsId)) : -1;
+
+        // find the news to like
+        News.findById(req.params.newsId, function (err, news) {
+            if (err || !news) {
+                return res.status(500).send();
+            }
+            
+            // the amount to like: 1 if we want to like (the news isn't in the list yet), -1 if we want to dislike (the user already liked the news)
+            var likesCountChangeAmt = likedNewsIndex === -1 ? 1 : -1;
+
+            // increase/decrease the like count and save the updated news
+            news.likes = news.likes ? news.likes + likesCountChangeAmt : (likesCountChangeAmt > 0 ? 1 : 0);
+            news.save();
+            
+            // add/remove the news id from the user's list and save the updated user
+            if  (likesCountChangeAmt > 0){
+                user.likedNews.push(req.params.newsId);
+            } else {
+                if (user.likedNews) {
+                    user.likedNews.splice(likedNewsIndex, 1)
+                }
+            }
+            user.save();
+
+            res.send(likesCountChangeAmt.toString());
+        })
+
+    })
+})
+
+
 // respond for non-existing route
 router.get("*", function(req, res){
     res.render("error", {error: "404"});
@@ -99,13 +146,15 @@ function generateNewsXML(news){
     // for every news, create a new news in newsList and add it the correct info
     for (let i = 0; i < news.length; i++) {
         var newNews = {}
+        newNews.id = news[i]._id.toString();
         newNews.title = news[i].title;
         newNews.body = news[i].body;
         newNews.newspaper = news[i].newspaper;
         newNews.date = news[i].date;
         newNews.image = news[i].image;
         newNews.link = news[i].link;
-        newNews.topics = {topic: news[i].topics}
+        newNews.likes = news[i].likes ? news[i].likes : "0";
+        newNews.topics = {topic: news[i].topics};
         newsList.push(newNews);
     }
 
