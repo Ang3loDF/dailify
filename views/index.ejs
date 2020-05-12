@@ -27,34 +27,26 @@
     </div>
 
     <div id="news-section">
-        <% news.forEach(function(news){ %>
-            <h3><a href="<%= news.link %>"><%= news.title %></a></h3>
-            <p><%= news.body %></p>
-            <p><%= news.newspaper %></p>
-            <p><%= news.topics %></p>
-            <p><%= news.date %></p>
-            <p>Like: <%= news.likes %></p>
 
-            <button class="like-button" data-newsId="<%= news._id %>">Like!</button>
-
-            <br>
-        <% }) %>
     </div>
 
     <script type="text/javascript">
 
+        findDefoultNews();
+
         // find new news on click
         document.getElementById("topics-selector-submit").onclick = function(){
-            findNewsJquery();
+            findPersonalizedNews();
         }
 
+        // send the like
         $(".like-button").click(function () {
             console.log("clicked like")
             sendNewsLike($(this).attr("data-newsId"))
         })
         
 
-        function findNewsJquery(){
+        function findPersonalizedNews(){
             
             // get the wanted topics
             var topicsString = "";
@@ -65,16 +57,11 @@
             })
             topicsString = topicsString.substring(0, topicsString.length - 1);
 
-            $.ajax("/news/find?topics=" + topicsString, {
+            $.ajax("/news/find?search=personalized&topics=" + topicsString, {
                 method: "POST",
                 dataType : "xml",
                 success: function(xml){
-                    showNewsJquery(xml);
-                    
-                    $(".like-button").click(function () {
-                        console.log("clicked like")
-                        sendNewsLike($(this).attr("data-newsId"))
-                    })
+                    showNews(xml);
                 },
                 error: function(request, error, message){
                     
@@ -84,7 +71,24 @@
             })
         }
 
-        function showNewsJquery(xml){
+
+        function findDefoultNews() {
+            $.ajax("/news/find", {
+                method: "POST",
+                dataType : "xml",
+                success: function(xml){
+                    showNews(xml);
+                },
+                error: function(request, error, message){
+                    
+                        console.log(error)
+                    
+                }
+            })
+        }
+
+
+        function showNews(xml){
             news = $(xml);
 
             // make the news section blank
@@ -107,6 +111,11 @@
             }))
 
             $("#news-section").html(htmlContent)
+
+            $(".like-button").click(function () {
+                console.log("clicked like")
+                sendNewsLike($(this).attr("data-newsId"))
+            })
         }
 
 
