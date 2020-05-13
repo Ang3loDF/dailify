@@ -1,3 +1,5 @@
+<%- include("../partials/header.ejs") %>
+
 <h1>Your profile page</h1>
 
 <% if (errorMessage && errorMessage.length > 0){ %>
@@ -14,4 +16,6 @@
 <% user.interests.forEach(topic => { %>
     <p><%= topic %></p>
 <% }) %>
+
+<%- include("../partials/footer.ejs") %>
 

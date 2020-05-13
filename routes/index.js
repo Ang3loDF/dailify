@@ -15,48 +15,20 @@ router.get("/", function(req, res){
 
 // show news page - route
 router.get("/news", function(req, res){
-
-    /* // if the client isn't authenticated, render the latest news
-    if(!req.isAuthenticated()){
-        News.find({}).sort({date: -1}).limit(numOfNewsToSend).then(news => {
-            res.render("index", {news: news});
-        })
-    }
-
-    // else find the news related to the user topics interests
-    else {
-        User.findById(req.user._id, function(err, user){
-            if (err || !user) return res.render("error", {error: "404"});
-
-            // find the users interest topics
-            var topics = user.interests;
-
-            if (topics.length !== 0) {
-                // find and render the latest news containing the specefied topics
-                News.find({ topics: { "$in" : topics }}).sort({date: -1}).limit(numOfNewsToSend).then(news => {
-                    res.render("index", {news: news});
-                })
-            } else {
-                // if the user has no interests, show the latest news
-                News.find({}).sort({date: -1}).limit(numOfNewsToSend).then(news => {
-                    res.render("index", {news: news});
-                })
-            }
-        })
-    } */
-
     res.render("index");
-
 })
 
 
 // find the news in the database based on topics and send a xml document - route
 router.post("/news/find", function(req, res){
 
+    // this route uses value 'search=personalized' to find and send news of personalized topics
+    // this route uses value 'topics=topic1-topic2...' to specify the topics
+
     // if no search value is specified, run the defoult search
     if (!req.query.search || req.query.search === "defoult") {
 
-        // if the client is authenticated find the news related to the user topics interests
+        // if the client is authenticated find and send the news related to the user topics interests
         if(req.isAuthenticated()){
 
             User.findById(req.user._id, function(err, user){
@@ -66,13 +38,13 @@ router.post("/news/find", function(req, res){
                 var topics = user.interests;
 
                 if (topics.length !== 0) {
-                    // find and render the latest news containing the specefied topics
+                    // find and send the latest news containing the specefied topics
                     News.find({ topics: { "$in" : topics }}).sort({date: -1}).limit(numOfNewsToSend).then(news => {
                         res.set('Content-Type', 'text/xml');
                         return res.send(generateNewsXML(news));
                     })
                 } else {
-                    // if the user has no interests, show the latest news
+                    // if the user has no interests, find and send the latest news
                     News.find({}).sort({date: -1}).limit(numOfNewsToSend).then(news => {
                         res.set('Content-Type', 'text/xml');
                         return res.send(generateNewsXML(news));
@@ -81,7 +53,7 @@ router.post("/news/find", function(req, res){
             })
         }
 
-        // else find the latest news
+        // else find and send the latest news
         else {
             News.find({}).sort({date: -1}).limit(numOfNewsToSend).then(news => {
                 res.set('Content-Type', 'text/xml');
@@ -102,31 +74,28 @@ router.post("/news/find", function(req, res){
 
             // find and send the latest news containing the specefied topics
             News.find({ topics: { "$in" : topics }}).sort({date: -1}).limit(numOfNewsToSend).then(news => {
-                
                 res.set('Content-Type', 'text/xml');
                 return res.send(generateNewsXML(news));
-                
             })
         } 
         
         // if no topics are passed, find and send the latest news
         else {
-
-            // find and send the latest news
             News.find({}).sort({date: -1}).limit(numOfNewsToSend).then(news => {
                 res.set('Content-Type', 'text/xml');
                 return res.send(generateNewsXML(news));
             })
-
         }
 
     }
     
+    // if search method isn't recognized, set status 'not found'
     else {
         res.status(404).send();
     }
 
 })
+
 
 
 // like the news if the current user didn't before, dislike otherwise

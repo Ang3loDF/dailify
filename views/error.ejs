@@ -4,9 +4,13 @@
     - 404 = the classic page not found error
 -->
 
+<%- include("./partials/header.ejs") %>
+
 <% if(error && error === "404"){ %>
 
     <h1>Error 404</h1>
     <p>Page not found</p>
 
 <% } %>
+
+<%- include("./partials/footer.ejs") %>

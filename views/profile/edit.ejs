@@ -1,3 +1,5 @@
+<%- include("../partials/header.ejs") %>
+
 <h1>Edit your profile</h1>
 
 <% if (errorMessage && errorMessage.length > 0){ %>
@@ -33,3 +35,5 @@
     <label>Password</label><br>
     <button>Submit</button>
 </form>
+
+<%- include("../partials/footer.ejs") %>

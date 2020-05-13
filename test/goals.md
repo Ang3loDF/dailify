@@ -23,4 +23,8 @@ BACK-END -----------------------------------------------------------------------
 FRONT-END -----------------------------------------------------------------------------------
 
 # news
-- create a javascript function that show the news
+- @ create a javascript function that show the news
+- re-organize functions
+
+# partials
+- initialize header and footer
