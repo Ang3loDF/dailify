@@ -69,7 +69,7 @@ function showNews(xml){
 
 
         // create a new div for the news
-        var container = $("<div>", {})
+        var container = $("<div>", {"data-newsId": id})
         
         // build the news
         container.append( $("<a>", {href: link}).append( $("<h2>", {}).append(title) ) );
@@ -77,7 +77,7 @@ function showNews(xml){
         container.append( $("<p>", {}).append(newspaper) );
         container.append( $("<p>", {}).append(topics) );
         container.append( $("<p>", {}).append(date) );
-        container.append( $("<p>", {}).append("likes: " + likes) );
+        container.append( $("<p>", {class: "likes-count"}).append(likes) );
         container.append( $("<button>", {
             // set the class active if the user likes the news
             class: "like-button " + (liked === "true" ? "active" : ""), 
@@ -91,14 +91,12 @@ function showNews(xml){
 
     // add the event listener to all the like buttons
     $(".like-button").click(function () {
-        console.log("clicked like")
         sendNewsLike($(this).attr("data-newsId"))
     })
 
     // if the user isn't authenticated, hide the like buttons
     isUserAuthenticated(function(auth){
         if (!auth) {
-            console.log("hidden")
             $(".like-button").addClass("hidden");
         } else {
             $(".like-button").removeClass("hidden");
@@ -195,6 +193,22 @@ function setLikeButtonColor(id, active) {
 
 
 
+// change the displayed likes count of the specified news of the passed amount
+function changeLikeCount(newsId, amount){
+    
+    // find the likes count element
+    var likesCountElement = $("div[data-newsId=" + newsId + "]").find(".likes-count");
+
+    // change the value
+    var likes = parseInt(likesCountElement.text(), 10);
+    likes += amount;
+
+    // apply the change to the element
+    likesCountElement.text(likes.toString())
+}
+
+
+
 // send the request to like the news
 function sendNewsLike(newsId){
 
@@ -210,6 +224,8 @@ function sendNewsLike(newsId){
         success: function(data){
             // set the button correct class (if everything fine)
             setLikeButtonColor(newsId, data == 1 ? true : false);
+            // change the displayed likes count (increase/decrease based on the response)
+            changeLikeCount(newsId, data == 1 ? 1 : -1)
         },
         error: function(jqXHR, textStatus, errorThrown ){
             // if an error accurred change again the button like state

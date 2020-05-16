@@ -27,3 +27,6 @@ FRONT-END ----------------------------------------------------------------------
     - hide button when user is not logged in
 
 # partials
+
+# error
+- add some error hendling in the js function, by checking the variables
