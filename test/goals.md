@@ -2,15 +2,14 @@
 BACK-END --------------------------------------------------------------------------------------
 
 # user
+- create route that respond "true" if the user is authenticated, "false" otherwise
 
 # error
 - change redirect in middleware
 - try add some error handling (send error state) in the routes that find news for ajax
 
 # news
-- change the routes that send the news. 
-    - Create a routes news that only renders the news page, without news.
-    - create a routes that sends the xml od the news. Find the defoult user news if no preferences are passede, else find the definded news.
+- v when finding news, the route should also send the property of the news liked/notLiked, so that tha front end can know if to show the liked button or not
     
 # home
 
@@ -23,8 +22,8 @@ BACK-END -----------------------------------------------------------------------
 FRONT-END -----------------------------------------------------------------------------------
 
 # news
-- @ create a javascript function that show the news
-- re-organize functions
+- like
+    - @ show the correct button color
+    - hide button when user is not logged in
 
 # partials
-- initialize header and footer

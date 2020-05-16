@@ -39,15 +39,17 @@ router.post("/news/find", function(req, res){
 
                 if (topics.length !== 0) {
                     // find and send the latest news containing the specefied topics
-                    News.find({ topics: { "$in" : topics }}).sort({date: -1}).limit(numOfNewsToSend).then(news => {
+                    News.find({ topics: { "$in" : topics }}).sort({date: -1}).limit(numOfNewsToSend).then(async news => {
                         res.set('Content-Type', 'text/xml');
-                        return res.send(generateNewsXML(news));
+                        var xml = await generateNewsXML(news, req.user._id);
+                        return res.send(xml);
                     })
                 } else {
                     // if the user has no interests, find and send the latest news
-                    News.find({}).sort({date: -1}).limit(numOfNewsToSend).then(news => {
+                    News.find({}).sort({date: -1}).limit(numOfNewsToSend).then(async news => {
                         res.set('Content-Type', 'text/xml');
-                        return res.send(generateNewsXML(news));
+                        var xml = await generateNewsXML(news, req.user._id);
+                        return res.send(xml);
                     })
                 }
             })
@@ -55,9 +57,10 @@ router.post("/news/find", function(req, res){
 
         // else find and send the latest news
         else {
-            News.find({}).sort({date: -1}).limit(numOfNewsToSend).then(news => {
+            News.find({}).sort({date: -1}).limit(numOfNewsToSend).then(async news => {
                 res.set('Content-Type', 'text/xml');
-                return res.send(generateNewsXML(news));
+                var xml = await generateNewsXML(news);
+                return res.send(xml);
             })
         }
 
@@ -73,17 +76,19 @@ router.post("/news/find", function(req, res){
             var topics = req.query.topics.split("-");
 
             // find and send the latest news containing the specefied topics
-            News.find({ topics: { "$in" : topics }}).sort({date: -1}).limit(numOfNewsToSend).then(news => {
+            News.find({ topics: { "$in" : topics }}).sort({date: -1}).limit(numOfNewsToSend).then(async news => {
                 res.set('Content-Type', 'text/xml');
-                return res.send(generateNewsXML(news));
+                var xml = await generateNewsXML(news, req.isAuthenticated() ? req.user._id : null);
+                return res.send(xml);
             })
         } 
         
         // if no topics are passed, find and send the latest news
         else {
-            News.find({}).sort({date: -1}).limit(numOfNewsToSend).then(news => {
+            News.find({}).sort({date: -1}).limit(numOfNewsToSend).then(async news => {
                 res.set('Content-Type', 'text/xml');
-                return res.send(generateNewsXML(news));
+                var xml = await generateNewsXML(news, req.isAuthenticated() ? req.user._id : null);
+                return res.send(xml);
             })
         }
 
@@ -154,7 +159,7 @@ router.get("*", function(req, res){
 // FUNCTIONS
 
 // generate and return a xml document from an array of news
-function generateNewsXML(news){
+async function generateNewsXML(news, userId = null){
 
     // the object to convert in xml
     var newsObj = {collection: {news: []}}
@@ -173,6 +178,11 @@ function generateNewsXML(news){
         newNews.image = news[i].image;
         newNews.link = news[i].link;
         newNews.likes = news[i].likes ? news[i].likes : "0";
+        
+        // send the property news liked: "true" if the current user liked the news, else "false" ("unknown" if some err occurred)
+        var newsLiked =  await checkUserLikesNews(userId, news[i]._id);
+        newNews.liked = newsLiked !== null ? newsLiked.toString() : "unknown"
+
         newNews.topics = {topic: news[i].topics};
         newsList.push(newNews);
     }
@@ -184,6 +194,31 @@ function generateNewsXML(news){
     var xmlNewsList = xmlBuilder.create(newsObj).end({ pretty: true});
 
     return xmlNewsList;
+}
+
+
+// return true if the user with the specified id likes the news with the spedified id
+async function checkUserLikesNews(userId, newsId) {
+    
+    // return false if user or news ids are not passed
+    if (!userId) return false;
+    if (!newsId) return false;
+
+    try {
+        // find the user
+        const user = await User.findById(userId).exec();
+
+        if (!user) return null;
+
+        // return true if the news id match itself in the users newsLiked array
+        return user.likedNews.find( el => el.equals(newsId) ) !== undefined ? true : false;
+    } 
+    // return null if an error accurs
+    catch (err) {
+        return null;
+    }
+
+
 }
 
 

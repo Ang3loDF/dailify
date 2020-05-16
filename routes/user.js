@@ -61,6 +61,15 @@ router.get("/logout", function(req, res){
 })
 
 
+// send "true" if the user is authenticated, else "false"
+router.get("/users/is-authenticated", function (req, res){
+    if (req.isAuthenticated()){
+        return res.send("true")
+    }
+    res.send("false");
+})
+
+
 // profile page - route
 router.get("/users/:userId", middleware.checkProfileOwnership, function(req, res){
     

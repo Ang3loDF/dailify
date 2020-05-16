@@ -1,16 +1,47 @@
 const maxWaitingTimeNewsRequest = 10000;
 
+// on page load find the defoult news
 findDefoultNews();
 
-// find new news on click
-$("topics-selector-submit").click = function(){
+
+
+// add click listener to the personalized topics selector button
+$("#topics-selector-submit").click(function(){
     findPersonalizedNews();
+})
+
+
+
+// send a requst to check if the user is authenticated. Callbacks:
+// - successCallback - params: auth = true if the user is authenticated, else false - called on request success
+// - errCallback - called on request error
+function isUserAuthenticated(successCallback, errCallback) {
+    
+    // define the url
+    const url = "/users/is-authenticated";
+
+    // send the request
+    $.ajax(url, {
+        method: "GET",
+        success: function(resp){
+            if (resp === "true") {
+                successCallback(true);
+            } else if (resp === "false") {
+                successCallback(false);
+            } else {
+                errCallback()
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            errCallback();
+        }
+    })
 }
 
 
 
 function showNews(xml){
-    
+
     // transform the xml document in a jquery object
     news = $(xml);
 
@@ -33,7 +64,8 @@ function showNews(xml){
             topics = $(this).find("topics").text(),
             date = $(this).find("date").text(),
             likes = $(this).find("likes").text(),
-            id = $(this).find("id").text();
+            id = $(this).find("id").text(),
+            liked = $(this).find("liked").text();
 
 
         // create a new div for the news
@@ -46,18 +78,35 @@ function showNews(xml){
         container.append( $("<p>", {}).append(topics) );
         container.append( $("<p>", {}).append(date) );
         container.append( $("<p>", {}).append("likes: " + likes) );
-        container.append( $("<button>", {class: "like-button", "data-newsId": id}).append("Like") );
+        container.append( $("<button>", {
+            // set the class active if the user likes the news
+            class: "like-button " + (liked === "true" ? "active" : ""), 
+            "data-newsId": id
+        }).append("Like") );
 
         // append the container to the news section
         $("#news-section").append(container);
 
     })
 
-    // add to all the like button the event listener
+    // add the event listener to all the like buttons
     $(".like-button").click(function () {
         console.log("clicked like")
         sendNewsLike($(this).attr("data-newsId"))
     })
+
+    // if the user isn't authenticated, hide the like buttons
+    isUserAuthenticated(function(auth){
+        if (!auth) {
+            console.log("hidden")
+            $(".like-button").addClass("hidden");
+        } else {
+            $(".like-button").removeClass("hidden");
+        }
+    }, function(){
+        $(".like-button").addClass("hidden");
+    })
+
 }
 
 
@@ -124,8 +173,33 @@ function findPersonalizedNews(){
 
 
 
+// set the properties of the like button if it's liked 
+function setLikeButtonColor(id, active) {
+    
+    // find the button with the attribute data-newsId
+    const button = $(".like-button[data-newsId='" + id + "'");
+
+    // if active is true set the active class
+    if (active === true) {
+        button.addClass("active")
+    } 
+    // if active is false remove the active class
+    else if (active === false) {
+        button.removeClass("active")
+    } 
+    // if active is not specified, toggle the class
+    else {
+        button.toggleClass("active")
+    }
+}
+
+
+
 // send the request to like the news
 function sendNewsLike(newsId){
+
+    // change tha button like state while waiting the response
+    setLikeButtonColor(newsId);
 
     // define the url
     const url = "/news/" + newsId + "/like?_method=PUT";
@@ -134,10 +208,12 @@ function sendNewsLike(newsId){
     $.ajax(url, {
         method: "POST",
         success: function(data){
-            console.log(data == 1 ? "liked" : "disliked");
+            // set the button correct class (if everything fine)
+            setLikeButtonColor(newsId, data == 1 ? true : false);
         },
         error: function(jqXHR, textStatus, errorThrown ){
-            console.log("news not liked")
+            // if an error accurred change again the button like state
+            setLikeButtonColor(newsId);
         }
     })
 }
