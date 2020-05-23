@@ -6,6 +6,7 @@ BACK-END -----------------------------------------------------------------------
 # error
 - change redirect in middleware
 - try add some error handling (send error state) in the routes that find news for ajax
+- error in registration
 
 # news
     

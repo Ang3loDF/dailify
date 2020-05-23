@@ -2,14 +2,6 @@
 
 <h1>Edit your profile</h1>
 
-<% if (errorMessage && errorMessage.length > 0){ %>
-    <h1>Message: <%= errorMessage %></h1>
-<% } %>
-
-<% if (successMessage && successMessage.length > 0){ %>
-    <h1>Message: <%= successMessage %></h1>
-<% } %>
-
 <form action="/users/<%= user._id %>?_method=PUT" method="POST">
     <h2>Interests</h2>
     <input type="checkbox" name="topics" value="economy">
