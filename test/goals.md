@@ -2,14 +2,12 @@
 BACK-END --------------------------------------------------------------------------------------
 
 # user
-- create route that respond "true" if the user is authenticated, "false" otherwise
 
 # error
 - change redirect in middleware
 - try add some error handling (send error state) in the routes that find news for ajax
 
 # news
-- v when finding news, the route should also send the property of the news liked/notLiked, so that tha front end can know if to show the liked button or not
     
 # home
 
@@ -22,11 +20,15 @@ BACK-END -----------------------------------------------------------------------
 FRONT-END -----------------------------------------------------------------------------------
 
 # news
-- like
-    - @ show the correct button color
-    - hide button when user is not logged in
 
 # partials
+- add the flash messages in the header (and syling)
 
 # error
 - add some error hendling in the js function, by checking the variables
+
+# style
+- style news
+- style forms
+- style progile and edit
+- enstablish color and theme classes (override bootstrap)

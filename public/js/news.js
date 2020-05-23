@@ -4,6 +4,13 @@ const maxWaitingTimeNewsRequest = 10000;
 findDefoultNews();
 
 
+// show topics dropdown
+showTopicsDropdown();
+// avoid to close the dropdown menu when clicking on it
+$(".dropdown-menu").click(function(e){
+    e.stopPropagation();
+})
+
 
 // add click listener to the personalized topics selector button
 $("#topics-selector-submit").click(function(){
@@ -232,4 +239,11 @@ function sendNewsLike(newsId){
             setLikeButtonColor(newsId);
         }
     })
+}
+
+
+
+// find with id and show topics dropdown
+function showTopicsDropdown() {
+    $("#topics-dropdown").css("display", "block");
 }

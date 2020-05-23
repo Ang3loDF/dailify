@@ -45,6 +45,7 @@ app.use(function(req, res, next){
     //setup
     res.locals.errorMessage = req.flash("error")
     res.locals.successMessage = req.flash("success");
+    res.locals.user = req.user;
 
     next();
 })

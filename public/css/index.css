@@ -1,2 +1,84 @@
 @import "news.css";
 
+
+/* 
+    COLOR PALETTE
+    black: 171A21 rgb(23, 26, 33)
+    grey: 2D2D2D rgb(45, 45, 45)
+    light-grey: 424242 rgb(66, 66, 66)
+    blue: 033860 rgb(3, 56, 96)
+    light blue: 5BC0EB rgb(91, 192, 235)
+    white: E5F4E3 rgb(229, 244, 227)
+*/
+
+
+/* body */
+#body {
+    background-color: #2D2D2D;
+    color: #E5F4E3;
+}
+
+
+/* atom classes */
+.bg-dark {
+    background-color: #2D2D2D!important;
+}
+.color-white {
+    color: #E5F4E3;
+}
+.theme-dark {
+    background-color: #2D2D2D;
+    color: #E5F4E3;
+}
+.theme-light-dark {
+    background-color: #424242;
+    color: #E5F4E3;
+}
+
+
+/* links */
+#body .link {
+    text-decoration: none;
+}
+.link:hover, .link:focus {
+    color: rgba(255, 255, 255, 0.7)
+}
+
+
+/* navbar */
+#body .navbar {
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+.navbar-toggle {
+    border-color: rgba(0, 0, 0, 0.1);
+}
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+#body .navbar .nav-item .link {
+    padding-bottom: 16px;
+    padding-top: 16px;
+}
+.nav-item {
+    border-bottom: 2px solid transparent;
+}
+.nav-item:hover {
+    border-bottom: 2px solid rgb(91, 192, 235);
+}
+
+/* dropdown menus */
+#topics-dropdown {
+    display: none;
+}
+.dropdown-item:active, .dropdown-item:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #424242;
+}
+.dropdown-menu button:focus {
+    color: #fff;
+    text-decoration: none;
+    background-color: #424242;
+}
+
