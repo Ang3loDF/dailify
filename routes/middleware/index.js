@@ -59,6 +59,11 @@ middleware.validateInputs = function (req, res, next) {
 
     // if topics are passed remove any non-valid topic
     if (req.body.topics) {
+        // if the topics input is not an array, convert it to array
+        if(!Array.isArray(req.body.topics)){
+            req.body.topics = [req.body.topics]
+        }
+        // remove the elements that aren't in the valid-topics list
         for (let i = 0; i < req.body.topics.length; i++) {
             if (!publicValues.newsTopics.includes(req.body.topics[i])) {
                 req.body.topics.splice(i, 1);

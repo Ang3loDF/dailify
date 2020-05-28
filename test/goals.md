@@ -2,11 +2,11 @@
 BACK-END --------------------------------------------------------------------------------------
 
 # user
+- make a specific message when a user try to registrate with an existing email
 
 # error
 - change redirect in middleware
 - try add some error handling (send error state) in the routes that find news for ajax
-- error in registration
 
 # news
     
