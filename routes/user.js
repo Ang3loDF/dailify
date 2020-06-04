@@ -132,7 +132,7 @@ router.put("/users/:userId/password", middleware.checkProfileOwnership, middlewa
         user.setPassword(req.body.password, function(){
             user.save();
             
-            req.flash("success", "Pasword succesfully upgrated")
+            req.flash("success", "Password succesfully upgrated")
             res.redirect("/users/" + req.params.userId);
         })
         

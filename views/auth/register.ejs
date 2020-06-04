@@ -1,27 +1,51 @@
 <%- include("../partials/header.ejs") %>
 
-<h1>Register</h1>
+<div class="container form-container my-5">
 
-<form action="/register" method="POST">
-    
-    <input type="email" name="email" placeholder="email"><br><br>
-    <input type="password" name="password" placeholder="password"><br><br>
+    <h1 class="mb-5">Register</h1>
 
-    <input type="text" name="name" placeholder="Your name"><br><br>
+    <form action="/register" method="POST">
+        
+        <div class="form-group">
+            <label for="input-email">Email</label>
+            <input type="email" name="email" class="form-control" id="input-email" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="input-password">Password</label>
+            <input type="password" name="password" class="form-control" id="input-password" placeholder="Enter password">
+        </div>
+        <div class="form-group">
+            <label for="input-name">Name</label>
+            <input type="text" name="name" class="form-control" id="input-name" placeholder="Enter your name">
+        </div>
 
-    <h2>Your Interests</h2>
-    <input type="checkbox" name="topics" value="economy">
-    <label>Economy</label><br>
-    <input type="checkbox" name="topics" value="tech">
-    <label>Tech</label><br>
-    <input type="checkbox" name="topics" value="politics">
-    <label>Politics</label><br>
-    <input type="checkbox" name="topics" value="business">
-    <label>Business</label><br>
-    <input type="checkbox" name="topics" value="world">
-    <label>World</label><br><br>
+        <div class="mt-5">
+            <h2 class="mb-4">What are your interests?</h2>
 
-    <button>Submit</button>
-</form>
+            <div class="custom-control custom-checkbox my-2">
+                <input type="checkbox" name="topics" value="world" class="custom-control-input" id="check-world">
+                <label class="custom-control-label" for="check-world">World</label>
+            </div>
+            <div class="custom-control custom-checkbox my-2">
+                <input type="checkbox" name="topics" value="economy" class="custom-control-input" id="check-economy">
+                <label class="custom-control-label" for="check-economy">Economy</label>
+            </div>
+            <div class="custom-control custom-checkbox my-2">
+                <input type="checkbox" name="topics" value="tech" class="custom-control-input" id="check-tech">
+                <label class="custom-control-label" for="check-tech">Technology</label>
+            </div>
+            <div class="custom-control custom-checkbox my-2">
+                <input type="checkbox" name="topics" value="politics" class="custom-control-input" id="check-politics">
+                <label class="custom-control-label" for="check-politics">Politics</label>
+            </div>
+            <div class="custom-control custom-checkbox my-2">
+                <input type="checkbox" name="topics" value="business" class="custom-control-input" id="check-business">
+                <label class="custom-control-label" for="check-business">Business</label>
+            </div>
+        </div>
+
+        <button class="btn btn-primary mt-4">Submit</button>
+    </form>
+</div>
 
 <%- include("../partials/footer.ejs") %>

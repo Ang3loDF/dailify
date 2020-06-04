@@ -33,6 +33,14 @@
     color: #E5F4E3;
 }
 
+/* buttons */
+#body .btn-primary {
+    background-color: #2D2D2D;
+    border-color: #5BC0EB;
+}
+#body .btn-primary:hover {
+    background-color: #5BC0EB;
+}
 
 /* links */
 #body .link {
@@ -160,4 +168,9 @@
     display: inline;
     color: #E5F4E3;
     cursor: auto;
+}
+
+/* form */
+.form-container {
+    max-width: 500px;
 }

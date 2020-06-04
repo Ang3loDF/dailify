@@ -21,13 +21,7 @@ BACK-END -----------------------------------------------------------------------
 FRONT-END -----------------------------------------------------------------------------------
 
 # news
-- v show news function
-    - like
-    - date
-    - link
-- v change the use of the news id in the like button, only in the container div
-- v show a defoult image when the news hasn't an image
-- v show the likes icon also when the user is not logged in, or just make it clear that that is the like count
+- show liked news in the profile page of the user
 
 # partials
 - add the flash messages in the header (and syling)
@@ -36,7 +30,10 @@ FRONT-END ----------------------------------------------------------------------
 - add some error hendling in the js function, by checking the variables
 
 # style
-- v style news
+- colors
 - style forms
-- style progile and edit
+    - login
+    - register
+    - @ edit account
+- style profile and edit
 - enstablish color and theme classes (override bootstrap)
