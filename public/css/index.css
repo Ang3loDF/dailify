@@ -170,7 +170,14 @@
     cursor: auto;
 }
 
+
 /* form */
 .form-container {
     max-width: 500px;
+}
+
+
+/* profile page elements */
+.profile-info-title {
+    border-bottom: 1px solid #5BC0EB;
 }

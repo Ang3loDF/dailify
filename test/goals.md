@@ -20,8 +20,13 @@ BACK-END -----------------------------------------------------------------------
 
 FRONT-END -----------------------------------------------------------------------------------
 
+# landing
+- create landing page
+
 # news
 - show liked news in the profile page of the user
+    - v add a new search method in the news route (comment it)
+    - v separe the frontend news.js function declaration from the on page load function call so that some of that functions can be called also in the profile page
 
 # partials
 - add the flash messages in the header (and syling)
@@ -30,10 +35,6 @@ FRONT-END ----------------------------------------------------------------------
 - add some error hendling in the js function, by checking the variables
 
 # style
+- style no found news 
 - colors
-- style forms
-    - login
-    - register
-    - @ edit account
 - style profile and edit
-- enstablish color and theme classes (override bootstrap)

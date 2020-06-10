@@ -1,22 +1,9 @@
+/* 
+    contains values and methods helpful for get and show news
+*/
+
 const maxWaitingTimeNewsRequest = 10000;
 const htmlNewsStructure = "<div class='container-fluid px-5 my-5'> <div class='px-sm-0 px-sm-5 px-md-0'> <div class='card theme-dark news-card'> <div class='card-horizontal news-card-horizontal'> <div class='row'> <div class='col-12 col-md-3 align-self-center text-center'> <div class='img-square-wrapper'> <img class='img-fluid rounded news-image' src='' alt='Card image cap'> </div> </div> <div class='col-12 col-md-9'> <div class='card-body p-3 p-md-0 pt-md-3'> <small class='text-muted float-md-right ml-md-3 news-newspaper'></small> <a href='#' class='link news-link'><h4 class='card-title news-title'></h4></a> <p class='card-text news-body'></p> </div> </div> </div> </div> <div class='card-footer'> <span class='like-button unactive'> <svg class='bi bi-heart news-heart-empity' width='1.5em' height='1.5em' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'> <path fill-rule='evenodd' d='M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z'/> </svg> <svg class='bi bi-heart-fill news-heart-fill' width='1.5em' height='1.5em' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'> <path fill-rule='evenodd' d='M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z'/> </svg> </span> <small class='text-muted news-like-count ml-2'></small> <small class='text-muted float-right news-date'></small> </div> </div> </div> </div> ";
-
-// on page load find the defoult news
-findDefoultNews();
-
-
-// show topics dropdown
-showTopicsDropdown();
-// avoid to close the dropdown menu when clicking on it
-$(".dropdown-menu").click(function(e){
-    e.stopPropagation();
-})
-
-
-// add click listener to the personalized topics selector button
-$("#topics-selector-submit").click(function(){
-    findPersonalizedNews();
-})
 
 
 
@@ -133,59 +120,6 @@ function showNoFoundNews(){
 
 
 
-// send the request for defoult news
-function findDefoultNews() {
-    
-    // define the url
-    const url = "/news/find";
-
-    // send the request
-    $.ajax(url, {
-        method: "POST",
-        dataType : "xml",
-        timeout: maxWaitingTimeNewsRequest,
-        success: function(xml){
-            showNews(xml);
-        },
-        error: function(jqXHR, textStatus, errorThrown){
-            showNoFoundNews();
-        }
-    })
-}
-
-
-
-// send the request for personalized news with checked topics
-function findPersonalizedNews(){    
-    
-    // get the wanted from the checkbox in the form of 'economy-tech-...'
-    var topicsString = "";
-    $(".topic-checkbox").each(function(i, el){
-        if($(this).prop("checked")){
-            topicsString += ($(this).prop("name") + "-");
-        }
-    })
-    topicsString = topicsString.substring(0, topicsString.length - 1);
-
-    // define the url
-    const url = "/news/find?search=personalized&topics=" + topicsString;
-
-    // send the request
-    $.ajax(url, {
-        method: "POST",
-        dataType : "xml",
-        timeout: maxWaitingTimeNewsRequest,
-        success: function(xml){
-            showNews(xml);
-        },
-        error: function(jqXHR, textStatus, errorThrown){
-            showNoFoundNews();
-        }
-    })
-}
-
-
-
 // set the properties of the like button if it's liked 
 function setLikeButtonColor(id, active) {
     
@@ -250,13 +184,6 @@ function sendNewsLike(newsId){
             setLikeButtonColor(newsId);
         }
     })
-}
-
-
-
-// find with id and show topics dropdown
-function showTopicsDropdown() {
-    $("#topics-dropdown").css("display", "block");
 }
 
 

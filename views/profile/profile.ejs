@@ -1,13 +1,56 @@
 <%- include("../partials/header.ejs") %>
 
-<h1>Your profile page</h1>
 
-<h2>Hi <%= user.name %></h2>
+<!-- top container with the profile informations -->
+<div class="mt-5 px-5">
+    <div class="px-0  px-sm-5 px-md-0">
+    
+        <h1 class="mb-5">Hi <%= user.name %></h1>
+        
+        <div class="row pb-4">
+            
+            <div class="col-12 col-sm-6 col-md-4 pb-4">
+                <h3 class="profile-info-title">Email</h3>
+                <p><%= user.email %></p>
+            </div>
+            
+            <div class="col-12 col-sm-6 col-md-4 pb-4">
+                <h3 class="profile-info-title">Interests</h3>
+            
+                <!-- content rendered by the server but hidden to the user, used to get user interests by the js script -->
+                <div class="d-none" id="hidden-topics-list">
+                    <% user.interests.forEach(function(el){ %>
+                        <p><%= el %></p>
+                    <% }) %>
+                </div>
+                
+                <ul id="profile-user-interests">
+                    <li value="world" class="d-none">World</li>
+                    <li value="economy" class="d-none">Economy</li>
+                    <li value="tech" class="d-none">Technology</li>
+                    <li value="politics" class="d-none">Politics</li>
+                    <li valuse="business" class="d-none">Business</li>
+                </ul>
+            </div>
 
-<h2>Interests</h2>
-<% user.interests.forEach(topic => { %>
-    <p><%= topic %></p>
-<% }) %>
+            <div class="col-12 col-md-4 pb-4"">
+                <a href="/users/<%= user._id %>/edit" class="btn btn-primary w-100">Edit</a>
+            </div>
+
+        </div>
+    
+        <h2 class="profile-info-title mt-5 mt-md-4">News you like</h2>
+
+    </div>
+    
+</div>
+
+<!-- liked news section -->
+<div id="news-section"></div>
+
+
+<script type='text/javascript' src='/js/multi-page/news.js'></script>
+<script type='text/javascript' src='/js/profile/profile.js'></script>
 
 <%- include("../partials/footer.ejs") %>
 

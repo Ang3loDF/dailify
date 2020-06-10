@@ -24,6 +24,7 @@ router.post("/news/find", function(req, res){
 
     // this route uses value 'search=personalized' to find and send news of personalized topics
     // this route uses value 'topics=topic1-topic2...' to specify the topics
+    // this route uses value 'search=liked' to find and send the liked news of the authenticated user
 
     // if no search value is specified, run the defoult search
     if (!req.query.search || req.query.search === "defoult") {
@@ -92,6 +93,25 @@ router.post("/news/find", function(req, res){
             })
         }
 
+    }
+
+    // if the search method is set to liked (routes pattern is news/find?search=liked)
+    else if (req.query.search === "liked") {
+        
+        // if the user is authenticated find and send his liked news
+        if (req.isAuthenticated()) {
+            User.findById(req.user._id).populate({ path: "likedNews", options: {sort: {date: -1}} }).exec(async (err, user) => {
+                res.set('Content-Type', 'text/xml');
+                var xml = await generateNewsXML(user.likedNews, req.isAuthenticated() ? req.user._id : null);
+                return res.send(xml);
+            })
+        }
+
+        // if the user is not authenticated send an empity response
+        else {
+            res.set('Content-Type', 'text/xml');
+            return res.send("");
+        }
     }
     
     // if search method isn't recognized, set status 'not found'
