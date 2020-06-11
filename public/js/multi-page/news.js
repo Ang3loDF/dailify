@@ -113,9 +113,15 @@ function showNews(xml) {
 
 // insert a message in the news section to warn that no news has been found
 function showNoFoundNews(){
-    var message = $("<h3>", {style: "color: red"}).append("No news found");
+    // get the message model
+    var noNewsPanel = $("#no-news-found-panel");
+    
+    // insert the message in the news section
     $("#news-section").empty();
-    $("#news-section").append(message);
+    $("#news-section").append(noNewsPanel);
+
+    // show the message
+    $("#news-section").find("#no-news-found-panel").removeClass("d-none");
 }
 
 

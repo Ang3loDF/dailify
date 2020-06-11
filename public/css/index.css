@@ -181,3 +181,8 @@
 .profile-info-title {
     border-bottom: 1px solid #5BC0EB;
 }
+
+/* no news found section */
+#no-news-found-icon {
+    font-size: 6rem;
+}
