@@ -190,11 +190,11 @@ async function generateNewsXML(news, userId = null){
     // for every news, create a new news in newsList and add it the correct info
     for (let i = 0; i < news.length; i++) {
         var newNews = {}
-        newNews.id = news[i]._id.toString();
+        newNews.id = news[i]._id ? news[i]._id.toString() : "undefined";
         newNews.title = news[i].title;
         newNews.body = news[i].body;
         newNews.newspaper = news[i].newspaper;
-        newNews.date = news[i].date.toString();
+        newNews.date = news[i].date ? news[i].date.toString() : "undefined";
         newNews.image = news[i].image;
         newNews.link = news[i].link;
         newNews.likes = news[i].likes ? news[i].likes : "0";
@@ -211,7 +211,12 @@ async function generateNewsXML(news, userId = null){
     newsObj.collection.news = newsList;
 
     // generate the xml code
-    var xmlNewsList = xmlBuilder.create(newsObj).end({ pretty: true});
+    var xmlNewsList;
+    try {
+        xmlNewsList = xmlBuilder.create(newsObj).end({ pretty: true});
+    } catch (err) {
+        xmlNewsList = "";
+    }
 
     return xmlNewsList;
 }

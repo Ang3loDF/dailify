@@ -41,7 +41,13 @@ router.post("/register", middleware.validateInputs, function(req, res){
     // register the user with the passord
     User.register(newUser, req.body.password, function(err, user){
         if(err){
-            req.flash("error", "Something went wrong. Try again.")
+            
+            if (err.name === "UserExistsError"){
+                req.flash("error", "A user with the given email is already registered.")
+            } else {
+                req.flash("error", "Something went wrong. Try again.")
+            }
+            
             return res.redirect("/register")
         }
         

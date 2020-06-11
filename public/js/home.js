@@ -42,7 +42,7 @@ function findDefoultNews() {
 // send the request for personalized news with checked topics
 function findPersonalizedNews(){    
     
-    // get the wanted from the checkbox in the form of 'economy-tech-...'
+    // get the wanted topics from the checkboxes in the form of 'economy-tech-...'
     var topicsString = "";
     $(".topic-checkbox").each(function(i, el){
         if($(this).prop("checked")){

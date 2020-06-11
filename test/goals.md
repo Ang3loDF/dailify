@@ -2,7 +2,6 @@
 BACK-END --------------------------------------------------------------------------------------
 
 # user
-- make a specific message when a user try to registrate with an existing email
 
 # error
 - change redirect in middleware
@@ -31,7 +30,5 @@ FRONT-END ----------------------------------------------------------------------
 - add some error hendling in the js functions, by checking the variables
 
 # style
-- style no found news 
 - colors and font
     - make the like button empity color blue
-- style profile and edit

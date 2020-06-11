@@ -42,7 +42,7 @@ function showNews(xml) {
     news = $(xml);
 
     // if no news are passed return
-    if (!xml && news.find("news").length === 0) {
+    if (!xml || news.find("news").length === 0) {
         return showNoFoundNews();
     }
 
