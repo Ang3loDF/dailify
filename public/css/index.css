@@ -1,9 +1,7 @@
 /* 
     COLOR PALETTE
-    black: 171A21 rgb(23, 26, 33)
-    grey: 2D2D2D rgb(45, 45, 45)
-    light-grey: 424242 rgb(66, 66, 66)
-    blue: 033860 rgb(3, 56, 96)
+    black: 252B2D
+    light-black: 31393C
     light blue: 5BC0EB rgb(91, 192, 235)
     white: E5F4E3 rgb(229, 244, 227)
     red: FC2F00 reg(252, 47, 0)
@@ -12,35 +10,34 @@
 
 /* body */
 #body {
-    background-color: #2D2D2D;
+    background-color: #31393C;
     color: #E5F4E3;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 
 /* atom classes */
 .bg-dark {
-    background-color: #2D2D2D!important;
+    background-color: #31393C!important;
 }
 .color-white {
     color: #E5F4E3;
 }
 .theme-dark {
-    background-color: #2D2D2D;
-    color: #E5F4E3;
-}
-.theme-light-dark {
-    background-color: #424242;
+    background-color: #252B2D;
     color: #E5F4E3;
 }
 
+
 /* buttons */
 #body .btn-primary {
-    background-color: #2D2D2D;
+    background-color: #31393C;
     border-color: #5BC0EB;
 }
 #body .btn-primary:hover {
     background-color: #5BC0EB;
 }
+
 
 /* links */
 #body .link {
@@ -65,8 +62,9 @@
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 #body .navbar .nav-item .link {
-    padding-bottom: 16px;
-    padding-top: 16px;
+    padding-bottom: 14px;
+    padding-top: 28px;
+    font-size: 1.2rem;
 }
 .nav-item {
     border-bottom: 2px solid transparent;
@@ -83,12 +81,12 @@
 .dropdown-item:active, .dropdown-item:hover {
     color: #fff;
     text-decoration: none;
-    background-color: #424242;
+    background-color: #252B2D;
 }
 .dropdown-menu button:focus {
     color: #fff;
     text-decoration: none;
-    background-color: #424242;
+    background-color: #252B2D;
 }
 
 
@@ -100,7 +98,7 @@
     right: 0;
     max-width: 500px;
     margin: 0px auto;
-    background-color: #424242;
+    background-color: #252B2D;
 }
 #body .alert-success {
     border-color: #5BC0EB;
@@ -150,6 +148,7 @@
 }
 .like-button.unactive .news-heart-empity {
     display: inline;
+    color: #5BC0EB;
 }
 .like-button.unactive .news-heart-fill {
     display: none;
@@ -182,7 +181,18 @@
     border-bottom: 1px solid #5BC0EB;
 }
 
+
 /* no news found section */
 #no-news-found-icon {
     font-size: 6rem;
+}
+
+
+/* brand logo */
+#name-logo {
+    width: 130px;
+    height: 60px;
+}
+#name-logo path {
+    fill: #5BC0EB;
 }
