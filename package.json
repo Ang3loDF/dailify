@@ -1,5 +1,5 @@
 {
-  "name": "web-news-assembler",
+  "name": "dailify",
   "version": "1.0.0",
   "description": "A website that finds news from differtent web newspapers and aggregates them in a sigle page.",
   "main": "app.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ang3loDF/web-news-assembler.git"
+    "url": "git+https://github.com/Ang3loDF/dailify.git"
   },
   "author": "Angelo Di Fuccia",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Ang3loDF/web-news-assembler/issues"
+    "url": "https://github.com/Ang3loDF/dailify/issues"
   },
-  "homepage": "https://github.com/Ang3loDF/web-news-assembler#readme",
+  "homepage": "https://github.com/Ang3loDF/dailify#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
