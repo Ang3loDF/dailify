@@ -9,13 +9,13 @@ const numOfNewsToSend = 20;
 
 // landing - route
 router.get("/", function(req, res){
-    res.redirect("/news");
+    res.render("index");
 })
 
 
 // show news page - route
 router.get("/news", function(req, res){
-    res.render("index");
+    res.render("home");
 })
 
 

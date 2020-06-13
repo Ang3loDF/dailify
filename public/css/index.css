@@ -1,6 +1,6 @@
 /* 
     COLOR PALETTE
-    black: 252B2D
+    black: 252B2D rgba(37, 43, 45, 1)
     light-black: 31393C
     light blue: 5BC0EB rgb(91, 192, 235)
     white: E5F4E3 rgb(229, 244, 227)
@@ -36,6 +36,10 @@
 }
 #body .btn-primary:hover {
     background-color: #5BC0EB;
+}
+#body .btn-primary:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 
