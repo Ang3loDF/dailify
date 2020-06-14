@@ -10,7 +10,7 @@ var express = require("express"),
 
     passportSetup = require("./config/passportSetup"),
     privateKeys = require("./config/privateKeys"),
-    seed = require("./test/seed"),
+    seed = require("./seed.js"),
     newsFind = require("./lib/news-finders/findProcess");
 
 // require routers
