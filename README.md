@@ -10,9 +10,15 @@ To run this app on your local machine you need NodeJS installed on your computer
 
 ### Installing
 
-You can simply install this app with a pull request, but you have to set up your private keys.
+You can simply install this app with a pull request, but you have to install the dipendencies and set up your private keys.
 
-#### Set Up Private Keys
+### Installing dependencies
+Move to the app folder with the command and type:
+```
+npm install
+```
+
+### Set Up Private Keys
 
 Go to 'config->privateKey.js', open the file with a text editor and change: 
 ```
