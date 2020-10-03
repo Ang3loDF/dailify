@@ -1,2 +1,3 @@
+node_modules/
 lib/news-finders/NYTScraper.js
 config/privateKeys.js
